@@ -21,11 +21,13 @@ class ElevatorManager {
     // TODO : need basic data structures to keep state, scheduling will add it's own stuff
 
     void elevatorStep(int id); //time step for a single elevator
+
+    virtual void schedule(); // main scheduling function
   public:
     ElevatorManager(int count, int floors); // initialize with number of elevators
     std::vector<ElevatorState> status(); // vector of elevator statuses indexed by id
     void update(int id, ElevatorState s); // update elevator state
-    void pickup(int floor, int direction); // 0 = down, 1 = up
+    virtual void pickup(int floor, int direction); // 0 = down, 1 = up
     void step(); // time step
 
     void printState(); // prints current state

@@ -31,11 +31,7 @@ void ElevatorManager::update(int id, ElevatorState s) {
 
 // adds pickup request
 void ElevatorManager::pickup(int floor, int direction) {
-  PickupRequest pr;
-  pr.requestTime = timeStep;
-  pr.floor = floor;
-  pr.direction = direction;
-  requests.push_back(pr);
+  // do nothing unless a scheduler is defined
 }
 
 // runs a step of the simulation for a single elevator, using information about the current state
@@ -72,4 +68,8 @@ void ElevatorManager::printState() {
     printf("%d %d\n", currentState[i].currentFloor, currentState[i].destination);
   }
   printf("---------\n");
+}
+
+void ElevatorManager::schedule() {
+  // do nothing
 }
