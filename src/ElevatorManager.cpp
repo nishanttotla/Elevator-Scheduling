@@ -32,6 +32,7 @@ void ElevatorManager::update(int id, ElevatorState s) {
 // adds pickup request
 void ElevatorManager::pickup(int floor, int direction) {
   PickupRequest pr;
+  pr.requestTime = timeStep;
   pr.floor = floor;
   pr.direction = direction;
   requests.push_back(pr);

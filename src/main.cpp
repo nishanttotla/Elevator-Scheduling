@@ -2,6 +2,8 @@
 
 int main() {
   ElevatorManager em(3,10);
-  em.printState();
+  em.step();
+  em.step();
+  em.step();
   return 0;
 }

@@ -6,6 +6,7 @@ struct ElevatorState {
 };
 
 struct PickupRequest {
+  int requestTime; // timestamp at which request arrived
   int floor;
   int direction; // 0 = down, 1 = up
 };
