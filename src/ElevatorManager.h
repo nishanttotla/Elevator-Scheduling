@@ -1,8 +1,10 @@
 #include <vector>
+#include <set>
 
 struct ElevatorState {
   int currentFloor;
-  int destination; // -1 = no requests
+  int destination; // -1 = idle
+  std::set<int> dropoffRequests; // dropoffs requested by passengers within elevator
 };
 
 struct PickupRequest {
@@ -17,7 +19,6 @@ class ElevatorManager {
     int timeStep; // time elapsed in the simulation
     int floorCount; // number of floors in the building, indexed 0 to floorCount-1
     std::vector<ElevatorState> currentState; // full state of all elevators
-    std::vector<PickupRequest> requests; // all unhandled requests
     // TODO : need basic data structures to keep state, scheduling will add it's own stuff
 
     void elevatorStep(int id); //time step for a single elevator
@@ -28,6 +29,7 @@ class ElevatorManager {
     std::vector<ElevatorState> status(); // vector of elevator statuses indexed by id
     void update(int id, ElevatorState s); // update elevator state
     virtual void pickup(int floor, int direction); // 0 = down, 1 = up
+    virtual void dropoff(int id, int floor); // request to dropoff when passenger is inside
     void step(); // time step
 
     void printState(); // prints current state

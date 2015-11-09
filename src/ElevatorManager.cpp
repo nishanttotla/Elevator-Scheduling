@@ -34,6 +34,11 @@ void ElevatorManager::pickup(int floor, int direction) {
   // do nothing unless a scheduler is defined
 }
 
+// adds dropoff request
+void ElevatorManager::dropoff(int floor, int direction) {
+  // do nothing unless a scheduler is defined
+}
+
 // runs a step of the simulation for a single elevator, using information about the current state
 // it takes a time step to open/close door on a given floor
 void ElevatorManager::elevatorStep(int id) {
