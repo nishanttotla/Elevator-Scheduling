@@ -3,7 +3,6 @@
 struct ElevatorState {
   int currentFloor;
   int destination; // -1 = no requests
-  int doorStatus; // 0 = closed, 1 = open
 };
 
 struct PickupRequest {
@@ -20,7 +19,7 @@ class ElevatorManager {
     std::vector<PickupRequest> requests; // all unhandled requests
     // TODO : need basic data structures to keep state, scheduling will add it's own stuff
 
-    void elevatorStep(); //time step for a single elevator
+    void elevatorStep(int id); //time step for a single elevator
   public:
     ElevatorManager(int count, int floors); // initialize with number of elevators
     std::vector<ElevatorState> status(); // vector of elevator statuses indexed by id
