@@ -53,6 +53,10 @@ void ElevatorManager::elevatorStep(int id) {
     // if just reached destination, elevator resets destionation and stays for a time step
     // scheduler can reassign a destination to this elevator now
     st.destination = -1;
+    // delete dropoff request if one existed for this floor
+    if(st.dropoffRequests.find(st.currentFloor) != st.dropoffRequests.end()) {
+      st.dropoffRequests.erase(st.currentFloor);
+    }
   }
   currentState[id] = st;
 }
