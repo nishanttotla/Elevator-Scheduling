@@ -74,7 +74,7 @@ void ElevatorManager::step() {
 void ElevatorManager::printState() {
   printf("Timesteps done: %d\n", timeStep);
   for(int i=0; i<currentState.size(); i++) {
-    printf("%d %d\n", currentState[i].currentFloor, currentState[i].destination);
+    printf("%d %d %d\n", currentState[i].currentFloor, currentState[i].destination, currentState[i].dropoffRequests.size());
   }
   printf("---------\n");
 }
