@@ -1,3 +1,6 @@
+#ifndef ELEVATOR_INTERFACE
+#define ELEVATOR_INTERFACE
+
 #include <vector>
 #include <set>
 
@@ -34,3 +37,5 @@ class ElevatorManager {
 
     void printState(); // prints current state
 };
+
+#endif
