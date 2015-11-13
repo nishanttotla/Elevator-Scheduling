@@ -43,7 +43,7 @@ void ElevatorManager::dropoff(int floor, int direction) {
 // it takes a time step to open/close door on a given floor
 void ElevatorManager::elevatorStep(int id) {
   ElevatorState st = currentState[id];
-  if(st.destination == -1) return; // elevator not requested
+  if(st.destination == -1) return; // elevator not assigned any task
 
   if(st.destination > st.currentFloor) { // move up one floor
     st.currentFloor++;
