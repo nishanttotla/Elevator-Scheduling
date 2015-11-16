@@ -69,11 +69,11 @@ int BetterFCFS::findFurthestRequestedFloorInDirection(int id, int floor, int dir
     if(max > -1) {
       extendedState[id].destinations.insert(max);
       if(pickupRequests[max].up) {
-        pickupRequests[i].up = false;
-        pickupRequests[i].upAssigned = true;
+        pickupRequests[max].up = false;
+        pickupRequests[max].upAssigned = true;
       } else {
-        pickupRequests[i].down = false;
-        pickupRequests[i].downAssigned = true;
+        pickupRequests[max].down = false;
+        pickupRequests[max].downAssigned = true;
       }
       return max;
     }
@@ -85,11 +85,11 @@ int BetterFCFS::findFurthestRequestedFloorInDirection(int id, int floor, int dir
     if(min < floorCount) {
       extendedState[id].destinations.insert(min);
       if(pickupRequests[min].down) {
-        pickupRequests[i].down = false;
-        pickupRequests[i].downAssigned = true;
+        pickupRequests[min].down = false;
+        pickupRequests[min].downAssigned = true;
       } else {
-        pickupRequests[i].up = false;
-        pickupRequests[i].upAssigned = true;
+        pickupRequests[min].up = false;
+        pickupRequests[min].upAssigned = true;
       }
       return min;
     }
@@ -158,7 +158,7 @@ void BetterFCFS::schedule() {
 
   for(int i=0; i<available.size(); i++) {
     int curDir = 0; // default down, but is a parameter and can be adjusted
-    int furthest = findFurthestRequestedFloorInDirection(st[available[i]].currentFloor, curDir);
+    int furthest = findFurthestRequestedFloorInDirection(available[i], st[available[i]].currentFloor, curDir);
 
     if(furthest == -1) {
       curDir = reverseDirection(curDir);
