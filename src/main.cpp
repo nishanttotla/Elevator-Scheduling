@@ -1,5 +1,6 @@
 #include "ElevatorManager.h"
 #include "FCFS.h"
+#include "BetterFCFS.h"
 
 int main() {
   FCFS em(1,100);

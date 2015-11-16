@@ -1,5 +1,4 @@
 #include "ElevatorManager.h"
-#include <queue>
 
 /* This class extends the elevator manager with a simple FCFS scheduler */
 
