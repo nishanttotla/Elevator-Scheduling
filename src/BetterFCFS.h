@@ -8,19 +8,23 @@
 - For each elevator
     > if elevator has a direction, then add all dropoffs in that direction to the list of destinations
     > it elevator doesn't have a direction, but has pending dropoffs, then pick a direction and add dropoffs in that direction to list of destinations
-[at this stage, each elevator has a direction, or no requests at all]
+[at this stage, each elevator has a direction, or no destination at all]
 - For each pickup request
-    > add it to the list of destinations for an elevator that has an empty list, or is movinng in the direction of the requested floor
+    > add it to the list of destinations for an elevator that has an empty list, or is moving in the direction of the requested floor, with the requested direction being the same
 - For each elevator
     > update destination to closest floor in the direction of movement
 */
 
+struct ExtendedElevatorState {
+    std::set<int> destinations;
+};
+
 class BetterFCFS : public ElevatorManager {
   private:
+    // extended state information
+    std::vector<ExtendedElevatorState> extendedState; // extended state for all elevators
     // queue to store pickup requests
     std::deque<PickupRequest> pickupRequests;
-    int findClosestDropoff(ElevatorState st); // assumes non-empty dropoff list
-    int findClosestElevator(std::set<int> available, int floor); // assumes at least one free elevator, returns id
   public:
     FCFS(int count, int floors);
     void pickup(int floor, int direction);
