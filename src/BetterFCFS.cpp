@@ -21,11 +21,32 @@ BetterFCFS::BetterFCFS(int count, int floors) : ElevatorManager(count, floors) {
 }
 
 void BetterFCFS::addPickupRequestsForDirection(int id, int direction) {
-
+  ElevatorState st = status()[id];
+  for(int i=0; i<floorCount; i++) {
+    if(direction == 1 && i>=st.currentFloor && pickupRequests[i].up) {
+      extendedState[id].destinations.insert(i);
+      pickupRequests[i].up = false;
+      pickupRequests[i].upAssigned = true;
+    } else if(direction == 0 && i<=st.currentFloor && pickupRequests[i].down) {
+      extendedState[id].destinations.insert(i);
+      pickupRequests[i].down = false;
+      pickupRequests[i].downAssigned = true;
+    }
+  }
 }
 
 void BetterFCFS::addDropoffRequestsForDirection(int id, int direction) {
-
+  ElevatorState st = status()[id];
+  // careful! iterating over set while deleting
+  for(std::set<int>::iterator it = st.dropoffRequests.begin(); it != st.dropoffRequests.end();) {
+    if((direction == 1 && *it >= st.currentFloor) || (direction == 0 && *it <= st.currentFloor)) {
+      extendedState[id].destinations.insert(*it);
+      st.dropoffRequests.erase(it++);
+    } else {
+      ++it;
+    }
+  }
+  update(id, st);
 }
 
 void BetterFCFS::updateDestinations() {
@@ -38,7 +59,13 @@ int BetterFCFS::reverseDirection(int dir) {
   else return -1;
 }
 
-int BetterFCFS::findFurthestRequestedFloorInDirection(int floor, int direction) {
+// function also adds request to destination list if found
+int BetterFCFS::findFurthestRequestedFloorInDirection(int id, int floor, int direction) {
+  if(direction == 1) {
+
+  } else if(direction == 0) {
+
+  }
   return -1;
 }
 
@@ -108,7 +135,7 @@ void BetterFCFS::schedule() {
     if(furthest == -1) {
       curDir = reverseDirection(curDir);
       extendedState[available[i]].direction = curDir;
-      furthest = findFurthestRequestedFloorInDirection(st[available[i]].currentFloor, curDir);
+      furthest = findFurthestRequestedFloorInDirection(available[i], st[available[i]].currentFloor, curDir);
       if(furthest == -1) {
         extendedState[i].direction = -1;
       } else {

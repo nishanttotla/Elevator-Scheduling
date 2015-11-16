@@ -55,11 +55,12 @@ class BetterFCFS : public ElevatorManager {
     // queue to store pickup requests
     std::vector<FloorRequest> pickupRequests;
 
+    int minSet(std::set<int> s, int flag);
     void addPickupRequestsForDirection(int id, int direction); // add all pickup requests 'in the direction' for elevator id
     void addDropoffRequestsForDirection(int id, int direction);
     void updateDestinations(); // update next destination after updating destination list
     int reverseDirection(int dir); // function that returns reversed direction
-    int findFurthestRequestedFloorInDirection(int floor, int direction); // returns floor number and adds arbitrary request from that floor, returns -1 if nothing found
+    int findFurthestRequestedFloorInDirection(int id, int floor, int direction); // returns floor number and adds arbitrary request from that floor, returns -1 if nothing found
   public:
     BetterFCFS(int count, int floors);
     void pickup(int floor, int direction);
