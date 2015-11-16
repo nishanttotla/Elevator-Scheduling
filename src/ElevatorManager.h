@@ -10,12 +10,6 @@ struct ElevatorState {
   std::set<int> dropoffRequests; // dropoffs requested by passengers within elevator
 };
 
-struct PickupRequest {
-  int requestTime; // timestamp at which request arrived
-  int floor;
-  int direction; // 0 = down, 1 = up
-};
-
 class ElevatorManager {
   protected:
     int elevatorCount; // number of elevators, ids 0 to elevatorCount-1

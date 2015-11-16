@@ -3,6 +3,12 @@
 
 /* This class extends the elevator manager with a simple FCFS scheduler */
 
+struct PickupRequest {
+  int requestTime; // timestamp at which request arrived
+  int floor;
+  int direction; // 0 = down, 1 = up
+};
+
 class FCFS : public ElevatorManager {
   private:
     // queue to store pickup requests
