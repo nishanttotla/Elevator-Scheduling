@@ -47,6 +47,49 @@ void BetterFCFS::dropoff(int id, int floor) {
 // follows algorithm in BetterFCFS.h
 void BetterFCFS::schedule() {
   std::vector<ElevatorState> st = status();
+  std::vector<int> available; // available elevators
+
+  for(int i=0; i<elevatorCount; i++) {
+    int curDir = extendedState[i].direction;
+    if(curDir != -1) {
+      addDropoffRequestsForDirection(i, curDir);
+      addPickupRequestsForDirection(i, curDir);
+
+      if(extendedState[i].destinations.empty()) {
+        curDir = reverseDirection(curDir);
+        extendedState[i].direction = curDir;
+
+        addDropoffRequestsForDirection(i, curDir);
+        addPickupRequestsForDirection(i, curDir);
+      }
+
+      if(extendedState[i].destinations.empty()) {
+        available.push_back(i);
+      }
+    } else {
+      available.push_back(i);
+    }
+  }
+
+  for(int i=0; i<available.size(); i++) {
+    int curDir = 0; // default down, but is a parameter and can be adjusted
+    int furthest = findFurthestRequestedFloorInDirection(st[available[i]].currentFloor, curDir);
+
+    if(furthest == -1) {
+      curDir = reverseDirection(curDir);
+      extendedState[available[i]].direction = curDir;
+      furthest = findFurthestRequestedFloorInDirection(st[available[i]].currentFloor, curDir);
+      if(furthest == -1) {
+        extendedState[i].direction = -1;
+      } else {
+        addPickupRequestsForDirection(available[i], curDir);
+      }
+    } else {
+      addPickupRequestsForDirection(available[i], curDir);
+    }
+  }
+
+  updateDestinations();
 }
 
 void BetterFCFS::printRequests() {

@@ -21,7 +21,7 @@
 
 
 - For each 'available' elevator
-    > pick a direction. Find the furthest request in that direction, set elevator
+    > pick a direction. Find the furthest request existing in that direction, set elevator
         direction to go to that floor. Then also add all pickup requests 'in that
         direction' to the destination list, as above. Try with the other direction
         if there's nothing in the first direction that was tried
@@ -54,6 +54,12 @@ class BetterFCFS : public ElevatorManager {
     std::vector<ExtendedElevatorState> extendedState; // extended state for all elevators
     // queue to store pickup requests
     std::vector<FloorRequest> pickupRequests;
+
+    void addPickupRequestsForDirection(int id, int direction); // add all pickup requests 'in the direction' for elevator id
+    void addDropoffRequestsForDirection(int id, int direction);
+    void updateDestinations(); // update next destination after updating destination list
+    void reverseDirection(int dir); // function that returns reversed direction
+    int findFurthestRequestedFloorInDirection(int floor, int direction); // returns floor number and adds arbitrary request from that floor, returns -1 if nothing found
   public:
     BetterFCFS(int count, int floors);
     void pickup(int floor, int direction);
