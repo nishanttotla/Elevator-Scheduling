@@ -49,8 +49,26 @@ void BetterFCFS::addDropoffRequestsForDirection(int id, int direction) {
   update(id, st);
 }
 
+// if direction != -1, then destination list must be non-empty
 void BetterFCFS::updateDestinations() {
-
+  std::vector<ElevatorState> st = status();
+  for(int i=0; i<elevatorCount; i++) {
+    if(extendedState[i].direction == 1) {
+      int min = floorCount;
+      for(std::set<int>::iterator it=extendedState[i].destinations.begin(); it!=extendedState[i].destinations.end(); ++it) {
+        if(*it < min) min = *it;
+      }
+      st[i].destination = min;
+      update(i, st[i]);
+    } else if(extendedState[i].direction == 0) {
+      int max = -1;
+      for(std::set<int>::iterator it=extendedState[i].destinations.begin(); it!=extendedState[i].destinations.end(); ++it) {
+        if(*it > max) max = *it;
+      }
+      st[i].destination = max;
+      update(i, st[i]);
+    }
+  }
 }
 
 int BetterFCFS::reverseDirection(int dir) {
