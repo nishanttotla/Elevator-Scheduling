@@ -62,9 +62,37 @@ int BetterFCFS::reverseDirection(int dir) {
 // function also adds request to destination list if found
 int BetterFCFS::findFurthestRequestedFloorInDirection(int id, int floor, int direction) {
   if(direction == 1) {
-
+    int max = -1;
+    for(int i=floor; i<floorCount; i++) {
+      if(pickupRequests[i].up || pickupRequests[i].down) max = i;
+    }
+    if(max > -1) {
+      extendedState[id].destinations.insert(max);
+      if(pickupRequests[max].up) {
+        pickupRequests[i].up = false;
+        pickupRequests[i].upAssigned = true;
+      } else {
+        pickupRequests[i].down = false;
+        pickupRequests[i].downAssigned = true;
+      }
+      return max;
+    }
   } else if(direction == 0) {
-
+    int min = floorCount;
+    for(int i=floor; i>=0; i--) {
+      if(pickupRequests[i].up || pickupRequests[i].down) min = i;
+    }
+    if(min < floorCount) {
+      extendedState[id].destinations.insert(min);
+      if(pickupRequests[min].down) {
+        pickupRequests[i].down = false;
+        pickupRequests[i].downAssigned = true;
+      } else {
+        pickupRequests[i].up = false;
+        pickupRequests[i].upAssigned = true;
+      }
+      return min;
+    }
   }
   return -1;
 }
