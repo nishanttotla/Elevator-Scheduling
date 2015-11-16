@@ -30,7 +30,7 @@
 - For each elevator
     > update destination to closest floor in direction of movement that's also in its list of destinations
 
-    [note that this algorithm does not perform load balancing]
+    [note that this algorithm does not perform load balancing, and current floor counts for both directions]
 */
 
 struct ExtendedElevatorState {
@@ -65,5 +65,4 @@ class BetterFCFS : public ElevatorManager {
     void pickup(int floor, int direction);
     void dropoff(int id, int floor);
     void schedule();
-    void printRequests(); // for debugging
 };

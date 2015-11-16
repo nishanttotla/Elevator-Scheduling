@@ -49,7 +49,15 @@ void BetterFCFS::schedule() {
   std::vector<ElevatorState> st = status();
   std::vector<int> available; // available elevators
 
+  ////// scheduling algorithm start //////
   for(int i=0; i<elevatorCount; i++) {
+    // first update some data structures to indicate that this floor has been served
+    if(extendedState[i].destinations.find(st[i].currentFloor) != extendedState[i].destinations.end()) {
+      extendedState[i].destinations.erase(st[i].currentFloor);
+      pickupRequests[st[i].currentFloor].upAssigned = false;
+      pickupRequests[st[i].currentFloor].downAssigned = false;
+    }
+
     int curDir = extendedState[i].direction;
     if(curDir != -1) {
       addDropoffRequestsForDirection(i, curDir);
@@ -90,8 +98,4 @@ void BetterFCFS::schedule() {
   }
 
   updateDestinations();
-}
-
-void BetterFCFS::printRequests() {
-
 }
