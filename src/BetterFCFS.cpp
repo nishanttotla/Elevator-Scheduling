@@ -170,7 +170,20 @@ void BetterFCFS::schedule() {
         available.push_back(i);
       }
     } else {
-      available.push_back(i);
+      if(st[i].dropoffRequests.empty()) {
+        available.push_back(i);
+      } else {
+        std::set<int>::iterator it = st[i].dropoffRequests.begin();
+        if(*it >= st[i].currentFloor) {
+          curDir = 1;
+          extendedState[i].direction = curDir;
+        }
+        else {
+          curDir = 0;
+          extendedState[i].direction = curDir;
+        }
+        addDropoffRequestsForDirection(i, curDir);
+      }
     }
   }
 
@@ -193,4 +206,12 @@ void BetterFCFS::schedule() {
   }
 
   updateDestinations();
+}
+
+void BetterFCFS::printExtendedState() {
+  printf("Extended state\n");
+  for(int i=0; i<extendedState.size(); i++) {
+    printf("%d %d\n", extendedState[i].direction, extendedState[i].destinations.size());
+  }
+  printf("------------------\n");
 }

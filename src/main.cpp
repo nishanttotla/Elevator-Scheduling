@@ -3,7 +3,7 @@
 #include "BetterFCFS.h"
 
 int main() {
-  FCFS em(1,100);
+  BetterFCFS em(1,100);
 
   em.step();
   em.pickup(4,1);
@@ -30,6 +30,7 @@ int main() {
   em.schedule();
 
   em.step();
+  // em.dropoff(0,7);
   em.schedule();
 
   em.step();
@@ -39,6 +40,7 @@ int main() {
   em.schedule();
 
   em.step();
+  // em.dropoff(0,7);
   em.schedule();
 
   em.step();

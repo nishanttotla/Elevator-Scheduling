@@ -66,4 +66,5 @@ class BetterFCFS : public ElevatorManager {
     void pickup(int floor, int direction);
     void dropoff(int id, int floor);
     void schedule();
+    void printExtendedState();
 };
