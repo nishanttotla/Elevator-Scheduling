@@ -7,6 +7,7 @@ BetterFCFS::BetterFCFS(int count, int floors) : ElevatorManager(count, floors) {
   // initialize extended elevator state
   for(int i=0; i<count; i++) {
     ExtendedElevatorState newState;
+    newState.direction = -1;
     extendedState.push_back(newState);
   }
 
@@ -43,8 +44,9 @@ void BetterFCFS::dropoff(int id, int floor) {
   update(id, st);
 }
 
+// follows algorithm in BetterFCFS.h
 void BetterFCFS::schedule() {
-
+  std::vector<ElevatorState> st = status();
 }
 
 void BetterFCFS::printRequests() {
