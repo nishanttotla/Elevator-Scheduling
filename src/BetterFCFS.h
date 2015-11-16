@@ -11,7 +11,7 @@
 - For each pickup request
     > add it to the list of destinations for an elevator that is moving in the direction of the requested floor, with the requested direction being the same
     > if not found, add it to the list of destionation for an elevator that has an empty list
-    (no load balancing happening here)
+    [no load balancing happening here]
 - For each elevator
     > update destination to closest floor in the direction of movement
 */
@@ -35,7 +35,7 @@ class BetterFCFS : public ElevatorManager {
     // queue to store pickup requests
     std::vector<FloorRequest> pickupRequests;
   public:
-    FCFS(int count, int floors);
+    BetterFCFS(int count, int floors);
     void pickup(int floor, int direction);
     void dropoff(int id, int floor);
     void schedule();
