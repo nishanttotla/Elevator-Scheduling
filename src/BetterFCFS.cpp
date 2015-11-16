@@ -148,6 +148,7 @@ void BetterFCFS::schedule() {
   for(int i=0; i<elevatorCount; i++) {
     // first update some data structures to indicate that this floor has been served
     if(extendedState[i].destinations.find(st[i].currentFloor) != extendedState[i].destinations.end()) {
+      printf("Elevator %d reached floor %d\n", i, st[i].currentFloor);
       extendedState[i].destinations.erase(st[i].currentFloor);
       pickupRequests[st[i].currentFloor].upAssigned = false;
       pickupRequests[st[i].currentFloor].downAssigned = false;

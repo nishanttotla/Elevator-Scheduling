@@ -3,7 +3,7 @@
 #include "BetterFCFS.h"
 
 int main() {
-  BetterFCFS em(1,100);
+  BetterFCFS em(2,100);
 
   em.step();
   em.pickup(4,1);
