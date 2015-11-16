@@ -13,8 +13,8 @@ BetterFCFS::BetterFCFS(int count, int floors) : ElevatorManager(count, floors) {
   // initialize data structure for pickup requests
   for(int i=0; i<floors; i++) {
     FloorRequest fr;
-    fr.up = false; fr.upTimestamp = 0;
-    fr.down = false; fr.downTimestamp = 0;
+    fr.up = false; fr.upTimestamp = 0; fr.upAssigned = false;
+    fr.down = false; fr.downTimestamp = 0; fr.downAssigned = false;
     pickupRequests.push_back(fr);
   }
 }
