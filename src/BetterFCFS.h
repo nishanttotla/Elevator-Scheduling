@@ -24,10 +24,10 @@ struct ExtendedElevatorState {
 struct FloorRequest {
     bool up;
     int upTimestamp; // timestamp for oldest up request, only counts if up == true
-    bool upAssigned; // has up request for floor been assigned (pending) to some elevator?
+    bool upAssigned; // has up request for floor been assigned (pending) to some elevator? (makes sense if up == false)
     bool down;
     int downTimestamp; // timestamp for oldest down request, only counts if down == true
-    bool downAssigned; // has down request for floor been assigned (pending) to some elevator?
+    bool downAssigned; // has down request for floor been assigned (pending) to some elevator? (makes sense if down == false)
 };
 
 class BetterFCFS : public ElevatorManager {

@@ -20,12 +20,27 @@ BetterFCFS::BetterFCFS(int count, int floors) : ElevatorManager(count, floors) {
 }
 
 void BetterFCFS::pickup(int floor, int direction) {
-
+  FloorRequest fr = pickupRequests[floor];
+  if(direction == 0) { // down request
+    if(!fr.down && !fr.downAssigned) { // no down request && no elevator assigned
+      fr.down = true;
+      fr.downTimestamp = timeStep;
+      pickupRequests[floor] = fr;
+    }
+  } else {
+    if(!fr.up && !fr.upAssigned) { // no down request && no elevator assigned
+      fr.up = true;
+      fr.upTimestamp = timeStep;
+      pickupRequests[floor] = fr;
+    }
+  }
 }
 
 // store dropoff request when it comes
 void BetterFCFS::dropoff(int id, int floor) {
-
+  ElevatorState st = status()[id];
+  st.dropoffRequests.insert(floor);
+  update(id, st);
 }
 
 void BetterFCFS::schedule() {
