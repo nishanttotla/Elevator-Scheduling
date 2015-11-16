@@ -20,6 +20,28 @@ BetterFCFS::BetterFCFS(int count, int floors) : ElevatorManager(count, floors) {
   }
 }
 
+void BetterFCFS::addPickupRequestsForDirection(int id, int direction) {
+
+}
+
+void BetterFCFS::addDropoffRequestsForDirection(int id, int direction) {
+
+}
+
+void BetterFCFS::updateDestinations() {
+
+}
+
+int BetterFCFS::reverseDirection(int dir) {
+  if(dir == 0) return 1;
+  else if(dir == 1) return 0;
+  else return -1;
+}
+
+int BetterFCFS::findFurthestRequestedFloorInDirection(int floor, int direction) {
+  return -1;
+}
+
 void BetterFCFS::pickup(int floor, int direction) {
   FloorRequest fr = pickupRequests[floor];
   if(direction == 0) { // down request

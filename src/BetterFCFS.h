@@ -58,7 +58,7 @@ class BetterFCFS : public ElevatorManager {
     void addPickupRequestsForDirection(int id, int direction); // add all pickup requests 'in the direction' for elevator id
     void addDropoffRequestsForDirection(int id, int direction);
     void updateDestinations(); // update next destination after updating destination list
-    void reverseDirection(int dir); // function that returns reversed direction
+    int reverseDirection(int dir); // function that returns reversed direction
     int findFurthestRequestedFloorInDirection(int floor, int direction); // returns floor number and adds arbitrary request from that floor, returns -1 if nothing found
   public:
     BetterFCFS(int count, int floors);
