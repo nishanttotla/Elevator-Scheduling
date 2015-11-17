@@ -16,8 +16,8 @@ All source files are in the `src` directory. Here's a brief description of conte
   - `BetterFCFS.h` and `BetterFCFS.cpp` : This is the scheduling algorithm described below. The implementation closely follows the description. It isn't the most optimal implementation, but should work for a reasonable number of elevators and floors.
 
 ## Algorithm
-"Keep moving in one direction until possible, then reverse direction"
-(list of destinations to go to is maintained for each elevator, algorithms executes at each step)
+### Idea : Keep moving in one direction until possible, then reverse direction
+A list of destinations to go to is maintained for each elevator
 
 - For each elevator
     * if elevator has a direction
@@ -76,3 +76,9 @@ Also missing is a good front-end and analysis framework. Currently `main.cpp` mu
 
 ## Analysis
 To judge performance of the algorithm and to compare with naive FCFS, the following would be interesting questions
+  1. Given a set of pickup and dropoff requests, what's the total time needed to finish?
+  2. What is the maximum wait time for a pickup request? Dropoff request?
+  3. What is the average wait time for a pickup request? Dropoff request?
+  4. Expected number of people who have to wait for much longer than the average.
+  5. Prove that every request will be satisfied (no starvation).
+  6. What is the maximum fraction of active requests a single elevator might have to handle? How to balance out the load?
