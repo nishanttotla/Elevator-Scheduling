@@ -52,6 +52,7 @@ void BetterFCFS::addDropoffRequestsForDirection(int id, int direction) {
 // if direction != -1, then destination list must be non-empty
 void BetterFCFS::updateDestinations() {
   std::vector<ElevatorState> st = status();
+
   for(int i=0; i<elevatorCount; i++) {
     if(extendedState[i].direction == 1) {
       int min = floorCount;
@@ -116,6 +117,7 @@ int BetterFCFS::findFurthestRequestedFloorInDirection(int id, int floor, int dir
 }
 
 void BetterFCFS::pickup(int floor, int direction) {
+  printf("Pickup request received %d %d\n", floor, direction);
   FloorRequest fr = pickupRequests[floor];
   if(direction == 0) { // down request
     if(!fr.down && !fr.downAssigned) { // no down request && no elevator assigned
@@ -134,6 +136,7 @@ void BetterFCFS::pickup(int floor, int direction) {
 
 // store dropoff request when it comes
 void BetterFCFS::dropoff(int id, int floor) {
+  printf("Dropoff request received %d %d\n", id, floor);
   ElevatorState st = status()[id];
   st.dropoffRequests.insert(floor);
   update(id, st);
@@ -197,7 +200,7 @@ void BetterFCFS::schedule() {
       extendedState[available[i]].direction = curDir;
       furthest = findFurthestRequestedFloorInDirection(available[i], st[available[i]].currentFloor, curDir);
       if(furthest == -1) {
-        extendedState[i].direction = -1;
+        extendedState[available[i]].direction = -1;
       } else {
         addPickupRequestsForDirection(available[i], curDir);
       }
